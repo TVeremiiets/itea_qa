@@ -18,8 +18,9 @@ public class LinkedinLoginTest {
         emailfield.sendKeys("TanyaQA07@gmail.com");
         passwordField.sendKeys( "0635663551");
         singInButton.click();
-
-    }
+        Assert.assertEquals("Webpage expected title", driver.getTitle());
+        driver.close();
+            }
 
     @Test
     public void negativlogintest (){
