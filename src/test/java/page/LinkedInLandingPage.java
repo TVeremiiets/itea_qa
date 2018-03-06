@@ -31,5 +31,18 @@ public class LinkedInLandingPage extends LinkedinBasePage {
         return PageFactory.initElements(driver, LinkedinHomePage.class);
        /// return new LinkedinHomePage(driver);
     }
+    public <T> T loginAs (String email, String password) {
+        waitUnitElementIsCliskable(emailfield,5);
+        emailfield.sendKeys("TanyaQA07@gmail.com");
+        passwordField.sendKeys("0635663551");
+        singInButton.click();
+        if (singInButton.isDisplayed()) {
+            return (T) this;
+        }
+        else {
+            return (T) PageFactory.initElements(driver, LinkedinHomePage.class);
+        }
+        }
+    }
 
-}
+
