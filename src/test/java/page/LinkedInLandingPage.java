@@ -19,28 +19,23 @@ public class LinkedInLandingPage extends LinkedinBasePage {
 
     public LinkedInLandingPage(WebDriver driver) {
         super(driver);
+
         PageFactory.initElements(driver, this);
     }
 
-
-    public LinkedinHomePage loginAs (String email, String password) {
-        waitUnitElementIsCliskable(emailfield,5);
-        emailfield.sendKeys("TanyaQA07@gmail.com");
-        passwordField.sendKeys("0635663551");
-        singInButton.click();
-        return PageFactory.initElements(driver, LinkedinHomePage.class);
-       /// return new LinkedinHomePage(driver);
-    }
     public <T> T loginAs (String email, String password) {
         waitUnitElementIsCliskable(emailfield,5);
         emailfield.sendKeys("TanyaQA07@gmail.com");
         passwordField.sendKeys("0635663551");
         singInButton.click();
-        if (singInButton.isDisplayed()) {
-            return (T) this;
+        if (getPageUrl().contains("/feed")) {
+            return (T) new LinkedinHomePage(driver);
+        }
+        if (getPageUrl().contains("/login-submit")) {
+            return (T) new LinkedinLoginPage(driver);
         }
         else {
-            return (T) PageFactory.initElements(driver, LinkedinHomePage.class);
+            return (T) this;
         }
         }
     }
