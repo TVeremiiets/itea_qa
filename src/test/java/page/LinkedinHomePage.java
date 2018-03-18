@@ -1,6 +1,5 @@
 package page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,8 +26,9 @@ public class LinkedinHomePage extends LinkedinBasePage  {
     }
 
     public LinkedinSearchPage searchByTerm(String searchTerm) {
-searchFild.sendKeys(searchTerm);
-///waitUnitElementIsCliskable(seachIcon);
-seachIcon.click();
+        waitUnitElementIsCliskable(searchFild);
+        searchFild.sendKeys(searchTerm);
+        seachIcon.click();
+        return new LinkedinSearchPage(driver);
     }
 }

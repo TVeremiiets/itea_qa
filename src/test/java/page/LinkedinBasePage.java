@@ -1,14 +1,11 @@
 package page;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static java.lang.Thread.sleep;
 
 public class LinkedinBasePage {
     WebDriver driver;
@@ -26,9 +23,6 @@ public class LinkedinBasePage {
         }
 
     public void waitUnitElementIsCliskable (WebElement webElement ) {
-        //WebDriverWait wait = new WebDriverWait((WebDriver) driver, 10);
-       // wait.until(ExpectedConditions.elementToBeClickable(webElement));
-        // elementToBeClickable -только этот webElement, остальные локаторы
         waitUnitElementIsCliskable(webElement, 10);
 
     }
@@ -36,6 +30,10 @@ public class LinkedinBasePage {
         WebDriverWait wait = new WebDriverWait((WebDriver) driver, timeOutInSecond);
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
     }
-
+    public void waitUnitElementIsVisible (WebElement webElement, int timeOutInSecond) {
+        WebDriverWait wait = new WebDriverWait((WebDriver) driver, timeOutInSecond);
+        wait.until(ExpectedConditions.visibilityOf(webElement));
     }
+
+}
 
