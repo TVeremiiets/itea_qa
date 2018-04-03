@@ -8,26 +8,32 @@ import org.openqa.selenium.support.PageFactory;
 public class LinkedInLandingPage extends LinkedinBasePage {
 
     @FindBy (id="login-email")
-    private WebElement  emailfield;
+    private WebElement  emailField;
 
     @FindBy (id="login-password")
     private WebElement passwordField;
 
     @FindBy (id="login-submit")
-    private WebElement singInButton;
+    private WebElement signInButton;
 
+    @FindBy (xpath="//a[@class='link-forgot-password']")
+    private WebElement forgotPasswordLink;
 
-    public LinkedInLandingPage(WebDriver driver) {
+    public LinkedinLandingPage(WebDriver driver){
         super(driver);
-
         PageFactory.initElements(driver, this);
     }
 
-    public <T> T loginAs (String email, String password) {
-        waitUnitElementIsCliskable(emailfield,5);
-        emailfield.sendKeys("TanyaQA07@gmail.com");
-        passwordField.sendKeys("0635663551");
-        singInButton.click();
+    public LinkedinRequestPasswordResetPage forgotPasswordLinkClick() {
+        forgotPasswordLink.click();
+        return new LinkedinRequestPasswordResetPage(driver);
+    }
+
+    public <T> T loginAs(String email, String password){
+        waitUntilElementIsClickable(emailField, 5);
+        emailField.sendKeys(email);
+        passwordField.sendKeys(password);
+        signInButton.click();
         if (getPageUrl().contains("/feed")) {
             return (T) new LinkedinHomePage(driver);
         }
@@ -37,7 +43,19 @@ public class LinkedInLandingPage extends LinkedinBasePage {
         else {
             return (T) this;
         }
-        }
     }
 
+    public boolean isLoaded() {
+        boolean isLoaded;
+        try {
+            isLoaded = emailField.isDisplayed();
+        }
+        catch (NoSuchElementException e){
+            isLoaded = false;
+        }
+        return isLoaded;
+    }
+
+
+}
 

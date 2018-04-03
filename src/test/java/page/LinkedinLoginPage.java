@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
     public class LinkedinLoginPage extends LinkedinBasePage {
 
         @FindBy(id="session_key-login")
-        private WebElement emailfield;
+        private WebElement emailField;
 
         @FindBy (id="session_password-login")
         private WebElement passwordField;
@@ -18,10 +18,21 @@ import org.openqa.selenium.support.PageFactory;
         private WebElement singInButton;
 
 
-        public LinkedinLoginPage (WebDriver driver) {
+        public LinkedinLoginPage(WebDriver driver){
             super(driver);
-
             PageFactory.initElements(driver, this);
         }
+
+        public boolean isLoaded() {
+            boolean isLoaded;
+            try {
+                isLoaded = emailField.isDisplayed();
+            }
+            catch (NoSuchElementException e){
+                isLoaded = false;
+            }
+            return isLoaded;
+        }
+
 
     }

@@ -10,25 +10,37 @@ public class LinkedinHomePage extends LinkedinBasePage  {
     WebElement userIcon;
 
     @FindBy(xpath ="//input[@placeholder='Поиск']")
-    WebElement searchFild;
+    WebElement searchField;
 
     @FindBy(xpath ="//*[@type='search-icon']")
-    WebElement seachIcon;
+    WebElement searchIcon;
 
 
-    public  LinkedinHomePage (WebDriver driver) {
+    public LinkedinHomePage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
-    public boolean isSignedIn()  {
-        waitUnitElementIsCliskable(userIcon);
-        return userIcon.isDisplayed () ;
+
+    public boolean isSignedIn() {
+        waitUntilElementIsClickable(userIcon);
+        return userIcon.isDisplayed();
     }
 
     public LinkedinSearchPage searchByTerm(String searchTerm) {
-        waitUnitElementIsCliskable(searchFild);
-        searchFild.sendKeys(searchTerm);
-        seachIcon.click();
+        waitUntilElementIsClickable(searchField);
+        searchField.sendKeys(searchTerm);
+        searchIcon.click();
         return new LinkedinSearchPage(driver);
+    }
+
+    public boolean isLoaded() {
+        boolean isLoaded;
+        try {
+            isLoaded = userIcon.isDisplayed();
+        }
+        catch (NoSuchElementException e){
+            isLoaded = false;
+        }
+        return isLoaded;
     }
 }
